@@ -65,7 +65,7 @@
 
   <div id="startSlide" class="absolute z-20 flex flex-col items-center justify-center gap-1">
 
-    <img src="foto\pesan.png"
+    <img src="foto/pesan.png"
       onclick="startApp()"
       class="wiggle cursor-pointer"
       style="width:160px; background:transparent;"> 
@@ -79,6 +79,7 @@
   <div id="mainContent" class="hidden relative z-10 flex flex-col items-center justify-center w-full h-full px-6">
 
     <video id="videoPlayer" autoplay muted loop
+      class="slide-enter"
       style="width:260px; height:260px; object-fit:cover; border-radius:20px; margin-bottom:20px;">
     </video>
 
@@ -93,8 +94,7 @@
       <button onclick="navigate(1)"
         class="px-8 py-3 rounded-full flex items-center gap-2 hover:scale-110 active:scale-95"
         style="background:#FF4FA3; color:#fff; font-family:'Baloo 2'; font-weight:700;">
-        Berikutnya
-        <i data-lucide="chevron-right"></i>
+        next :v
       </button>
     </div>
 
@@ -102,17 +102,17 @@
 </div>
 
 <audio id="bgMusic" loop>
-  <source src="lagu\lagu.mp3">
+  <source src="lagu/lagu.mp3">
 </audio>
 
 <script>
 
 const videoSources = [
-  'vidio\\1.mp4',
-  'vidio\\2.mp4',
-  'vidio\\3.mp4',
-  'vidio\\4.mp4',
-  'vidio\\5.mp4'
+  'vidio/1.mp4',
+  'vidio/2.mp4',
+  'vidio/3.mp4',
+  'vidio/4.mp4',
+  'vidio/5.mp4'
 ];
 
 const bgMusic = document.getElementById('bgMusic');
@@ -164,14 +164,24 @@ function navigate(dir) {
   isAnimating = true;
 
   const box = document.getElementById('quoteBox');
+  const video = document.getElementById('videoPlayer');
+
   box.classList.remove('slide-enter');
   box.classList.add('slide-exit');
+
+  video.classList.remove('slide-enter');
+  video.classList.add('slide-exit');
 
   setTimeout(() => {
     currentSlide = (currentSlide + dir + 5) % 5;
     renderSlide(defaultConfig);
+
     box.classList.remove('slide-exit');
     box.classList.add('slide-enter');
+
+    video.classList.remove('slide-exit');
+    video.classList.add('slide-enter');
+
     setTimeout(() => { isAnimating = false; }, 600);
   }, 400);
 }
